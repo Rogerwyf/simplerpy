@@ -14,7 +14,8 @@ class LM:
     def __init__(self):
         self._model = None
 
-    def fit(self, X_train, y_train, feature_name=None, response_name=None, formula=None):
+    def fit(self, X_train, y_train, feature_name=None, response_name=None, formula=None,
+            verbose=1):
 
         if type(y_train) == pd.core.series.Series:
             res_name = y_train.name
@@ -45,8 +46,16 @@ class LM:
                 formula += col_names[i]
                 if i != len(col_names) - 1:
                     formula += " + "
-        print("Formula used for fitted model: " + formula)
+
+        if verbose:
+            print("Formula used for fitted model: " + formula)
         self._model = R.lm(formula, data=df)
+
+    def r_model_obj(self):
+        if self._model:
+            return self._model
+        else:
+            raise ValueError('model not fitted')
 
     def coefficient(self):
         if self._model:
