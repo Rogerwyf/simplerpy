@@ -2,8 +2,13 @@
 # -*- coding: utf-8 -*-
 # =============================================================================
 # Created By  : Roger Wang
-# Created Date: 
+# Created Date: 3/4/2022
 # =============================================================================
+
+"""
+Test suite for the class LM in the package simplerpy
+"""
+
 import unittest
 
 import numpy as np
@@ -71,7 +76,7 @@ class LMTestCase(unittest.TestCase):
     def test_lm_residual(self):
         R_resi = self.M1R.rx('residuals')[0]
         P_resi = self.M1P.residuals()
-        self.assertEqual(R_resi.tolist(), P_resi.tolist())
+        self.assertEqual(R_resi.tolist(), P_resi)
 
     def test_lm_df_residual(self):
         R_dfr = self.M1R.rx('df.residual')[0][0]
@@ -102,7 +107,7 @@ class LMTestCase(unittest.TestCase):
     def test_fitted_values(self):
         R_fv = self.M1R.rx('fitted.values')[0]
         P_fv = self.M1P.fitted_values()
-        self.assertEqual(R_fv.tolist(), P_fv.tolist())
+        self.assertEqual(R_fv.tolist(), P_fv)
 
     def test_r_squared(self):
         R_rs = R.summary(self.M1R).rx('r.squared')[0][0]
@@ -117,7 +122,7 @@ class LMTestCase(unittest.TestCase):
     def test_f_statistic(self):
         R_fs = R.summary(self.M1R).rx('fstatistic')[0]
         P_fs = self.M1P.f_statistic()
-        self.assertEqual(R_fs.tolist(), P_fs.tolist())
+        self.assertEqual(R_fs.tolist(), P_fs)
 
     def test_residual_se(self):
         R_rse = R.summary(self.M1R).rx('sigma')[0][0]
