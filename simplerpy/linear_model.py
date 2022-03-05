@@ -2,15 +2,13 @@
 # -*- coding: utf-8 -*-
 # =============================================================================
 # Created By  : Roger Wang
-# Created Date: 
+# Created Date: 3/3/2022
 # =============================================================================
 import pandas as pd
 from rpy2 import robjects as ro
 from rpy2.robjects import pandas2ri
-
 pandas2ri.activate()
 R = ro.r
-
 
 class LM:
     def __init__(self):
@@ -150,14 +148,3 @@ class LM:
               f' {round(self.adj_r_squared(), 6)}')
         print(f'F-statistic: {round(self.f_statistic()[0], 6)} on {self.f_statistic()[1]} and '
               f'{self.f_statistic()[2]} DF with p-value: {round(self.f_test_pvalue(), 6)}')
-
-
-if __name__ == "__main__":
-    from sklearn.model_selection import train_test_split
-    model = LM()
-    df = pd.read_csv('Sales_sample.csv')
-    X = df.drop(columns=['LAST_SALE_PRICE'])
-    y = df['LAST_SALE_PRICE']
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.33, random_state=42)
-    model.fit(X, y)
-    model.summary()
