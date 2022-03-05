@@ -11,9 +11,14 @@ This class mimics how most machine learning models in Python work and provide ex
 retrieved from the R object.
 """
 
+import logging
+
 import pandas as pd
 from rpy2 import robjects as ro
+from rpy2.rinterface_lib.callbacks import logger as rpy2_logger
 from rpy2.robjects import pandas2ri
+
+rpy2_logger.setLevel(logging.ERROR)
 pandas2ri.activate()
 R = ro.r
 
@@ -275,4 +280,4 @@ class LM:
         print(f'Mutiple R-squared: {round(self.r_squared() , 6)}, Adjusted R-squared:'
               f' {round(self.adj_r_squared(), 6)}')
         print(f'F-statistic: {round(self.f_statistic()[0], 6)} on {self.f_statistic()[1]} and '
-              f'{self.f_statistic()[2]} DF with p-value: {round(self.f_test_pvalue(), 6)}')
+              f'{self.f_statistic()[2]} DF with p-value: {round(self.f_test_pvalue(), 6)}\n')
