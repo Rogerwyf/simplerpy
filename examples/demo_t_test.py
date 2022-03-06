@@ -4,7 +4,7 @@
 # =======================================
 
 import pandas as pd
-from simplerpy import tTest
+from simplerpy.t_test import tTest
 
 # Demo data
 Stock_Market = {
@@ -21,3 +21,10 @@ Stock_Market = {
 
 df = pd.DataFrame(Stock_Market, columns=['Year', 'Month', 'Interest_Rate', 'Unemployment_Rate',
                                          'Stock_Index_Price'])
+
+# Test if mean of interest_Rate is 0 in Year 2017
+df_2017 = df[df['Year']==2017]
+print(type(df_2017['Interest_Rate']))
+test_One = tTest()
+test_One.fit(df_2017['Interest_Rate'])
+test_One.summary()
