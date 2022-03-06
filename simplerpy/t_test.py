@@ -30,10 +30,16 @@ class tTest:
         :param data_a: vector
         :param data_b: vector, used only for two sample test
         :param mu: numeric value, default to 0
-        :param var_equal: equal or unequal variances test
+        :param var_equal: boolean, true for equal or false for unequal variances test
+        :param conf: float numeric, confidence level for interval/testing
+        :param paired: boolean, true for paired t-test, default to false
+        :param alternative: c('two.sided', 'less', 'greater'), type of test to perform
+
+        :return: None, assign to self._model
         """
-        # one-sample t-test
+
         dataA = base.as_numeric(data_a)
+        # one-sample t-test
         if data_a and not data_b:
             #mu is defaulted to 0
             self._model = stats.t_test(dataA, mu=mu, **{'conf.level': conf,
@@ -49,48 +55,88 @@ class tTest:
 
 
     def pvalue(self):
+        """
+        Returns p-value obtained from test
+
+        return: a float value
+        """
         if self._model:
             return self._model.rx2('p.value')[0]
         else:
             raise ValueError('Model not fitted')
 
     def tvalue(self):
+        """
+        Returns the test statistic
+
+        return: a float value
+        """
         if self._model:
             return self._model.rx2('statistic')[0]
         else:
             raise ValueError('Model not fitted')
 
     def df(self):
+        """
+        Returns the degrees of freedom of test
+
+        return: numeric value
+        """
         if self._model:
             return self._model.rx2('parameter')[0]
         else:
             raise ValueError('Model not fitted')
 
     def ci(self):
+        """
+        Returns the confidence interval of test
+
+        return: float vector
+        """
         if self._model:
-            return self._model.rx2('conf.int')[0]
+            return self._model.rx2('conf.int')[:2]
         else:
             raise ValueError('Model not fitted')
 
     def estimate(self):
+        """
+        Returns the estimated mean or difference in means
+
+        return: float value or list of float values
+        """
         if self._model:
-            return self._model.rx2('estimate')[0]
+            return self._model.rx2('estimate')
         else:
             raise ValueError('Model not fitted')
 
     def stderror(self):
+        """
+        Returns the standard error of the mean(difference)
+
+        return: float value
+        """
         if self._model:
             return self._model.rx2('stderr')[0]
         else:
             raise ValueError('Model not fitted')
 
     def alternative(self):
+        """
+        Returns the alternative hypothesis
+
+        return: string
+        """
         if self._model:
             return self._model.rx2('alternative')[0]
         else:
             raise ValueError('Model not fitted')
 
     def method(self):
+        """
+        Returns type of t-test performed
+
+        return: string
+        """
         if self._model:
             return self._model.rx2('method')[0]
         else:
@@ -98,23 +144,31 @@ class tTest:
 
 
     def summary(self):
+        """
+        Prints summary of ttest
+
+        return: none
+        """
         temp = str(self._model)
         index_of_d = temp.index('d')
         num_of_close = temp.count(')')
         index_of_t = temp[index_of_d + 5:].index('t')
 
-        return temp[:index_of_d] + temp[index_of_d + 5 + index_of_t:]
+        print(temp[:index_of_d] + temp[index_of_d + 5 + index_of_t:])
 
-if __name__=="__main__":
-    test = tTest()
-    x = [1,2,3,4,5]
-    y = [10,15,32,41,60]
-    test.fit(x, mu=10, alternative='greater')
-    print(test.summary())
-    print(test.pvalue())
-    print(test.alternative())
-    print(test.tvalue())
-    print(test.method())
-    print(test.df())
+#if __name__=="__main__":
+ #   test = tTest()
+  #  x = [1,2,3,4,5]
+  #  y = [10,15,32,41,60]
+   # test.fit(x, y)
+   # test.summary()
+    #print(test.tvalue())
+   # print(test.method())
+   # print(type(test.method()))
+    #test2 = tTest()
+    #test2.fit(x, alternative='less', mu=10)
+    #print(test2.method())
+    #print(type(test2.method()))
+    #test2.summary()
 
 
