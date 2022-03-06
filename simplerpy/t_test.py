@@ -6,6 +6,9 @@
 
 #importr grabs packages from R
 from rpy2.robjects.packages import importr
+from rpy2.robjects import pandas2ri
+import pandas as pd
+pandas2ri.activate()
 base = importr('base')
 stats = importr('stats')
 """
@@ -42,21 +45,21 @@ class tTest:
         else:
             dataA = base.as_numeric(data_a)
         # one-sample t-test
-        if data_a and not data_b:
+        if data_b is None:
             #mu is defaulted to 0
             self._model = stats.t_test(dataA, mu=mu, **{'conf.level': conf,
                                                         'alternative': alternative})
-
+        else:
         # two sample t-test
-        if data_a and data_b:
+        #if data_a and data_b:
             if type(data_b) == pd.core.series.Series:
                 dataB = data_b
             else:
                 dataB = base.as_numeric(data_b)
-            self._model = stats.t_test(dataA, dataB,**{'var.equal': var_equal,
-                                                       'conf.level': conf,
-                                                       'paired': paired,
-                                                       'alternative': alternative})
+            self._model = stats.t_test(dataA, dataB ,mu = mu, **{'var.equal': var_equal,
+                                                                 'conf.level': conf,
+                                                                 'paired': paired,
+                                                                 'alternative': alternative})
 
 
     def pvalue(self):
