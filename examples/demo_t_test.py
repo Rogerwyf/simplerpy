@@ -22,9 +22,15 @@ Stock_Market = {
 df = pd.DataFrame(Stock_Market, columns=['Year', 'Month', 'Interest_Rate', 'Unemployment_Rate',
                                          'Stock_Index_Price'])
 
-# Test if mean of interest_Rate is 0 in Year 2017
+# Test if mean of interest_Rate is equal to 2 in Year 2017
 df_2017 = df[df['Year']==2017]
-print(type(df_2017['Interest_Rate']))
 test_One = tTest()
-test_One.fit(df_2017['Interest_Rate'])
+test_One.fit(df_2017['Interest_Rate'], mu=2)
 test_One.summary()
+
+# one sample t-test with numpy array
+X = df['Unemployment_Rate']
+X = X.to_numpy()
+test_Two = tTest()
+test_Two.fit(X)
+test_Two.summary()
