@@ -12,14 +12,6 @@ stats = importr('stats')
 class tTest:
     def __init__(self) -> None:
         self._model = None
-        self._pvalue = None
-        self._tvalue = None
-        self._df = None
-        self._ci = None
-        self._estimate = None
-        self._stderr = None
-        self._alternative = None
-        self._method = None
         pass
 
 
@@ -37,39 +29,53 @@ class tTest:
             self._model = stats.t_test(dataA, dataB,**{'var.equal': var_equal})
 
 
-        #self._pvalue = self._model.rx2('p.value')
-        #self._tvalue = self._model.rx2('statistic')
-        #self._df = self._model.rx2('parameter')
-        #self._ci = self._model.rx2('conf.int')
-        #self._estimate = self._model.rx2('estimate')
-        #self._stderr = self._model.rx2('stderr')
-        #self._alternative = self._model.rx2('alternative')
-        #self._method = self._model.rx2('method')
-
-
     def pvalue(self):
-        return self._pvalue
+        if self._model:
+            return self._model.rx2('p.value')[0]
+        else:
+            raise ValueError('Model not fitted')
 
     def tvalue(self):
-        return self._tvalue
+        if self._model:
+            return self._model.rx2('statistic')[0]
+        else:
+            raise ValueError('Model not fitted')
 
     def df(self):
-        return self._df
+        if self._model:
+            return self._model.rx2('parameter')[0]
+        else:
+            raise ValueError('Model not fitted')
 
     def ci(self):
-        return self._ci
+        if self._model:
+            return self._model.rx2('conf.int')[0]
+        else:
+            raise ValueError('Model not fitted')
 
     def estimate(self):
-        return self._estimate
+        if self._model:
+            return self._model.rx2('estimate')[0]
+        else:
+            raise ValueError('Model not fitted')
 
     def stderror(self):
-        return self._stderr
+        if self._model:
+            return self._model.rx2('stderr')[0]
+        else:
+            raise ValueError('Model not fitted')
 
     def alternative(self):
-        return self._alternative
+        if self._model:
+            return self._model.rx2('alternative')[0]
+        else:
+            raise ValueError('Model not fitted')
 
     def method(self):
-        return self._method
+        if self._model:
+            return self._model.rx2('method')[0]
+        else:
+            raise ValueError('Model not fitted')
 
 
 
@@ -81,10 +87,12 @@ class tTest:
 
         return temp[:index_of_d] + temp[index_of_d + 5 + index_of_t:]
 
-test = tTest()
-x = [1,2,3,4,5]
-y = [10,15,32,41,60]
-test.fit(x, mu=10)
-print(test.summary())
+if __name__=="__main__":
+    test = tTest()
+    x = [1,2,3,4,5]
+    y = [10,15,32,41,60]
+    test.fit(x, mu=10)
+    #print(test.summary())
+    print(test.pvalue())
 
 
