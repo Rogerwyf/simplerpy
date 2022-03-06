@@ -31,6 +31,16 @@ test_One.summary()
 # one sample t-test with numpy array
 X = df['Unemployment_Rate']
 X = X.to_numpy()
+Y=[1,2,3,4,5]
 test_Two = tTest()
-test_Two.fit(X)
+test_Two.fit(Y)
 test_Two.summary()
+
+# two sample t-test, unequal variances, 0.90 confidence level
+df_2016 = df[df['Year']==2016]
+test_Three = tTest()
+test_Three.fit(df_2017['Interest_Rate'], df_2016['Interest_Rate'], var_equal=False, conf=0.90)
+test_Three.summary()
+
+# extract p-value for two sample test
+print('The p-value for this test is ' + str(test_Three.pvalue())).
