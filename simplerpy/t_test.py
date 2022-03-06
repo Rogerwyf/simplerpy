@@ -23,31 +23,28 @@ class tTest:
         pass
 
 
-    def fit(self, xTrain, yTrain=None, mu=None, **var_equal: bool):
+    def fit(self, data_a, data_b=None, mu=0, var_equal=True):
         R = ro.r
         # one-sample t-test
-        xTrain2 = base.as_numeric(xTrain)
-        if xTrain and not yTrain:
-            if mu: #mu is defaulted to 0
-                self._model = stats.t_test(xTrain2, mu=mu)
-            else:
-                self._model = stats.t_test(xTrain2)
-        # two sample t-test
-        if xTrain and yTrain:
-            yTrain2 = base.as_numeric(yTrain)
-            if var_equal:
-                self._model = stats.t_test(xTrain2, yTrain2,**{'var.equal': True})
-            else:
-                self._model= stats.t_test(xTrain2, yTrain2, **{'var.equal': False})
+        dataA = base.as_numeric(data_a)
+        if data_a and not data_b:
+            #mu is defaulted to 0
+            self._model = stats.t_test(dataA, mu=mu)
 
-        self._pvalue = self._model.rx2('p.value')
-        self._tvalue = self._model.rx2('statistic')
-        self._df = self._model.rx2('parameter')
-        self._ci = self._model.rx2('conf.int')
-        self._estimate = self._model.rx2('estimate')
-        self._stderr = self._model.rx2('stderr')
-        self._alternative = self._model.rx2('alternative')
-        self._method = self._model.rx2('method')
+        # two sample t-test
+        if data_a and data_b:
+            dataB = base.as_numeric(data_b)
+            self._model = stats.t_test(dataA, dataB,**{'var.equal': var_equal})
+
+
+        #self._pvalue = self._model.rx2('p.value')
+        #self._tvalue = self._model.rx2('statistic')
+        #self._df = self._model.rx2('parameter')
+        #self._ci = self._model.rx2('conf.int')
+        #self._estimate = self._model.rx2('estimate')
+        #self._stderr = self._model.rx2('stderr')
+        #self._alternative = self._model.rx2('alternative')
+        #self._method = self._model.rx2('method')
 
 
     def pvalue(self):
@@ -87,6 +84,7 @@ class tTest:
 test = tTest()
 x = [1,2,3,4,5]
 y = [10,15,32,41,60]
-test.fit(x)
+test.fit(x, mu=10)
+print(test.summary())
 
 
