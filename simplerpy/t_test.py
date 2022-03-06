@@ -37,8 +37,10 @@ class tTest:
 
         :return: None, assign to self._model
         """
-
-        dataA = base.as_numeric(data_a)
+        if type(data_a) == pd.core.series.Series:
+            dataA = data_a
+        else:
+            dataA = base.as_numeric(data_a)
         # one-sample t-test
         if data_a and not data_b:
             #mu is defaulted to 0
@@ -47,7 +49,10 @@ class tTest:
 
         # two sample t-test
         if data_a and data_b:
-            dataB = base.as_numeric(data_b)
+            if type(data_b) == pd.core.series.Series:
+                dataB = data_b
+            else:
+                dataB = base.as_numeric(data_b)
             self._model = stats.t_test(dataA, dataB,**{'var.equal': var_equal,
                                                        'conf.level': conf,
                                                        'paired': paired,
