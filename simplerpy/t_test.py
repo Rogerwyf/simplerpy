@@ -8,15 +8,29 @@ from rpy2 import robjects as ro
 from rpy2.robjects.packages import importr
 base = importr('base')
 stats = importr('stats')
-
+"""
+The class "tTest" performs one or two sample t-tests from R through the bridge package rpy2.
+This class mimics Python commands and outputs while providing extra information
+for the rest retrieved from the R object.  
+"""
 class tTest:
-    def __init__(self) -> None:
+    def __init__(self):
+        """
+        Initialize the tTest object, fit() must be called before all other methods
+        """
         self._model = None
-        pass
+
 
 
     def fit(self, data_a, data_b=None, mu=0, var_equal=True):
-        R = ro.r
+        """
+        Run the ttest with different features with stats.t_test in R
+        through the package rpy2.
+
+        :param data_a: vector
+        :param data_b: vector, used only for two sample test
+        :param mu: numeric value,
+        """
         # one-sample t-test
         dataA = base.as_numeric(data_a)
         if data_a and not data_b:
@@ -87,12 +101,12 @@ class tTest:
 
         return temp[:index_of_d] + temp[index_of_d + 5 + index_of_t:]
 
-if __name__=="__main__":
-    test = tTest()
-    x = [1,2,3,4,5]
-    y = [10,15,32,41,60]
-    test.fit(x, mu=10)
+#if __name__=="__main__":
+ #   test = tTest()
+  #  x = [1,2,3,4,5]
+   # y = [10,15,32,41,60]
+   # test.fit(x, mu=10)
     #print(test.summary())
-    print(test.pvalue())
+   # print(test.pvalue())
 
 
