@@ -3,7 +3,7 @@
 # Created Date:
 # ================================================
 
-from rpy2 import robjects as ro
+
 #importr grabs packages from R
 from rpy2.robjects.packages import importr
 base = importr('base')
@@ -22,25 +22,30 @@ class tTest:
 
 
 
-    def fit(self, data_a, data_b=None, mu=0, var_equal=True):
+    def fit(self, data_a, data_b=None, mu=0, var_equal=True, conf=0.95, paired=False, alternative= "two.sided"):
         """
         Run the ttest with different features with stats.t_test in R
         through the package rpy2.
 
         :param data_a: vector
         :param data_b: vector, used only for two sample test
-        :param mu: numeric value,
+        :param mu: numeric value, default to 0
+        :param var_equal: equal or unequal variances test
         """
         # one-sample t-test
         dataA = base.as_numeric(data_a)
         if data_a and not data_b:
             #mu is defaulted to 0
-            self._model = stats.t_test(dataA, mu=mu)
+            self._model = stats.t_test(dataA, mu=mu, **{'conf.level': conf,
+                                                        'alternative': alternative})
 
         # two sample t-test
         if data_a and data_b:
             dataB = base.as_numeric(data_b)
-            self._model = stats.t_test(dataA, dataB,**{'var.equal': var_equal})
+            self._model = stats.t_test(dataA, dataB,**{'var.equal': var_equal,
+                                                       'conf.level': conf,
+                                                       'paired': paired,
+                                                       'alternative': alternative})
 
 
     def pvalue(self):
@@ -92,7 +97,6 @@ class tTest:
             raise ValueError('Model not fitted')
 
 
-
     def summary(self):
         temp = str(self._model)
         index_of_d = temp.index('d')
@@ -101,12 +105,16 @@ class tTest:
 
         return temp[:index_of_d] + temp[index_of_d + 5 + index_of_t:]
 
-#if __name__=="__main__":
- #   test = tTest()
-  #  x = [1,2,3,4,5]
-   # y = [10,15,32,41,60]
-   # test.fit(x, mu=10)
-    #print(test.summary())
-   # print(test.pvalue())
+if __name__=="__main__":
+    test = tTest()
+    x = [1,2,3,4,5]
+    y = [10,15,32,41,60]
+    test.fit(x, mu=10, alternative='greater')
+    print(test.summary())
+    print(test.pvalue())
+    print(test.alternative())
+    print(test.tvalue())
+    print(test.method())
+    print(test.df())
 
 
