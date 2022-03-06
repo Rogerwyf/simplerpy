@@ -158,11 +158,12 @@ class tTest:
         return: none
         """
         temp = str(self._model)
-        index_of_d = temp.index('d')
+        index_of_d = temp.index('data')
         num_of_close = temp.count(')')
-        index_of_t = temp[index_of_d + 5:].index('t')
+        index_of_t = temp[index_of_d + 15:].index('t')
 
-        print(temp[:index_of_d] + temp[index_of_d + 5 + index_of_t:])
+        print(temp[:index_of_d] + temp[index_of_d + 15 + index_of_t:])
+        #print(temp[index_of_d:])
 
 #if __name__=="__main__":
  #   test = tTest()
