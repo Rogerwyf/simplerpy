@@ -8,7 +8,7 @@ setuptools.setup(
     version="1.0.0",
     author=["Roger Wang", "Michelle Hsieh", "Regina-Mae Dominguez"],
     author_email=["rogerwyf@uw.edu", "mh808@uw.edu", "rmvd@uw.edu"],
-    description="Instance in an Instant",
+    description="rpy2 made easy",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Rogerwyf/simplerpy",
