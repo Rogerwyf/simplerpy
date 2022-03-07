@@ -15,9 +15,9 @@ Clone the repo and create a virtual environment in the root of the repo:
 python -m venv venv
 source venv/bin/activate
 ```
-If you're using Anaconda/Miniconda, create and activate a new Conda environment:
+If you're using Anaconda/Miniconda, create and activate a new Conda environment with Python 3.7:
 ```
-conda create --n simplerpy
+conda create --n simplerpy python=3.7
 conda activate simplerpy
 ```
 Install the all the dependencies from `requirements.txt`:
