@@ -5,7 +5,7 @@ rpy2 is a well-known bridging package for Python programmers to use R in Python.
 
 ### Users
 * Python programmers who would like to run statistical analysis with R in Python
-* Researches who use both languages for statistical research purposes
+* Researchers who use both languages for statistical research purposes
 * Students who use both languages for their coursework
 
 ### Data Sources
