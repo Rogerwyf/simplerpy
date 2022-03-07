@@ -136,4 +136,5 @@ class AOV:
     "Residual standard error: "
     RSE = AOV.residual_se(self)
     output+=str(round(RSE, 1)) + "\n" + "Estimated effects may be unbalanced"
+    return output
     print(output)
