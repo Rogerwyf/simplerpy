@@ -60,7 +60,7 @@ class LM:
         # check if input features are contained in a Pandas Dataframe and prepare data for lm()
         if type(X_train) == pd.DataFrame:
             col_names = X_train.columns.values.tolist()
-            df = X_train
+            df = X_train.copy()
 
         else:
             if feature_name:
