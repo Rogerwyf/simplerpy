@@ -174,21 +174,4 @@ class tTest:
         index_of_t = temp[index_of_d + 15:].index('t')
 
         print(temp[:index_of_d] + temp[index_of_d + 15 + index_of_t:])
-        #print(temp[index_of_d:])
-
-#if __name__=="__main__":
- #   test = tTest()
-  #  x = [1,2,3,4,5]
-  #  y = [10,15,32,41,60]
-   # test.fit(x, y)
-   # test.summary()
-    #print(test.tvalue())
-   # print(test.method())
-   # print(type(test.method()))
-    #test2 = tTest()
-    #test2.fit(x, alternative='less', mu=10)
-    #print(test2.method())
-    #print(type(test2.method()))
-    #test2.summary()
-
 
