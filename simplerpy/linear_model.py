@@ -272,12 +272,20 @@ class LM:
         """
         Print a summary for the fitted model that mimics the printout from summary() function in R.
 
-        :return: None
+        :return: String contains the output summary
         """
-        print(R.summary(self._model).rx('coefficients'))
-        print(f'Residual standard error: {round(self.residual_se(), 6)} on {self.df_residual()} '
-              f'degrees of freedom')
-        print(f'Mutiple R-squared: {round(self.r_squared() , 6)}, Adjusted R-squared:'
-              f' {round(self.adj_r_squared(), 6)}')
-        print(f'F-statistic: {round(self.f_statistic()[0], 6)} on {self.f_statistic()[1]} and '
-              f'{self.f_statistic()[2]} DF with p-value: {round(self.f_test_pvalue(), 6)}\n')
+        if self._model:
+            output = ""
+            output += str(R.summary(self._model).rx('coefficients'))
+            output += f'Residual standard error: {round(self.residual_se(), 6)} on' \
+                      f' {self.df_residual()} degrees of freedom\n'
+            output += f'Mutiple R-squared: {round(self.r_squared() , 6)}, Adjusted R-squared:' \
+                      f' {round(self.adj_r_squared(), 6)}\n'
+            output += f'F-statistic: {round(self.f_statistic()[0], 6)} on {self.f_statistic()[1]} and ' \
+                      f'{self.f_statistic()[2]} DF with p-value: {round(self.f_test_pvalue(), 6)}'
+
+            print(output)
+
+            return output
+        else:
+            raise ValueError('model not fitted')
