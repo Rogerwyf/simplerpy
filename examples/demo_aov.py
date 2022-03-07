@@ -10,7 +10,14 @@ A demo for using class AOV in the package simplerpy
 """
 
 import pandas as pd
+import rpy2
+import numpy as np
 from simplerpy.aov import AOV
+from rpy2 import robjects as ro
+from rpy2.robjects import Formula
+from rpy2.robjects import pandas2ri
+pandas2ri.activate()
+R=ro.r
 
 Stock_Market = {
     'Year': [2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017, 2016, 2016,
