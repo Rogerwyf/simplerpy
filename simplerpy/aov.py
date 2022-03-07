@@ -13,7 +13,6 @@ models in Python work and provide extra information retrieved from the R object.
 
 """
 
-
 import pandas as pd
 import rpy2
 import numpy as np
@@ -127,7 +126,6 @@ class AOV:
     SSR = AOV.sum_of_squares(self)
     for i in range(len(SSR)):
       output+=f"{'{:e}'.format(SSR[i]):>{maxLength}}"
-    print(AOV.sum_of_squares_res(self))
     output+=f"{'{:e}'.format(AOV.sum_of_squares_res(self)):>{maxLength}}"+"\n" \
     +"Deg. of Freedom"+"\t"
     degFree = AOV.df(self)
