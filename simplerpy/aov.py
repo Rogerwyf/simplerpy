@@ -114,7 +114,7 @@ class AOV:
     """
     Prints a cleaned summary output for the fitted aov model like in R.
 
-    :return: None
+    :return: string of summary output
     """
     output = "Terms"+"\n" + "              " + "\t"
     maxLength = len("{:e}".format(AOV.sum_of_squares(self)[0]))+1
