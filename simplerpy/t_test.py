@@ -4,10 +4,11 @@
 # ================================================
 
 
-#importr grabs packages from R
-from rpy2.robjects.packages import importr
-from rpy2.robjects import pandas2ri
 import pandas as pd
+from rpy2.robjects import pandas2ri
+# importr grabs packages from R
+from rpy2.robjects.packages import importr
+
 pandas2ri.activate()
 base = importr('base')
 stats = importr('stats')
@@ -61,6 +62,16 @@ class tTest:
                                                                  'paired': paired,
                                                                  'alternative': alternative})
 
+    def r_model_obj(self):
+        """
+        Returns the fitted R t-test object.
+
+        :return: a R object
+        """
+        if self._model:
+            return self._model
+        else:
+            raise ValueError('Test not fitted')
 
     def pvalue(self):
         """
@@ -71,7 +82,7 @@ class tTest:
         if self._model:
             return self._model.rx2('p.value')[0]
         else:
-            raise ValueError('Model not fitted')
+            raise ValueError('Test not fitted')
 
     def tvalue(self):
         """
@@ -82,7 +93,7 @@ class tTest:
         if self._model:
             return self._model.rx2('statistic')[0]
         else:
-            raise ValueError('Model not fitted')
+            raise ValueError('Test not fitted')
 
     def df(self):
         """
@@ -93,7 +104,7 @@ class tTest:
         if self._model:
             return self._model.rx2('parameter')[0]
         else:
-            raise ValueError('Model not fitted')
+            raise ValueError('Test not fitted')
 
     def ci(self):
         """
@@ -104,7 +115,7 @@ class tTest:
         if self._model:
             return self._model.rx2('conf.int')[:2]
         else:
-            raise ValueError('Model not fitted')
+            raise ValueError('Test not fitted')
 
     def estimate(self):
         """
@@ -115,7 +126,7 @@ class tTest:
         if self._model:
             return self._model.rx2('estimate')
         else:
-            raise ValueError('Model not fitted')
+            raise ValueError('Test not fitted')
 
     def stderror(self):
         """
@@ -126,7 +137,7 @@ class tTest:
         if self._model:
             return self._model.rx2('stderr')[0]
         else:
-            raise ValueError('Model not fitted')
+            raise ValueError('Test not fitted')
 
     def alternative(self):
         """
@@ -137,7 +148,7 @@ class tTest:
         if self._model:
             return self._model.rx2('alternative')[0]
         else:
-            raise ValueError('Model not fitted')
+            raise ValueError('Test not fitted')
 
     def method(self):
         """
@@ -148,7 +159,7 @@ class tTest:
         if self._model:
             return self._model.rx2('method')[0]
         else:
-            raise ValueError('Model not fitted')
+            raise ValueError('Test not fitted')
 
 
     def summary(self):
