@@ -53,6 +53,53 @@ class LMTestCase(unittest.TestCase):
         self.ds2x = dataset2_x
         self.ds2y = dataset2_y
 
+        self.empty = LM()
+
+    def test_r_obj_handling(self):
+        self.assertRaises(ValueError, self.empty.r_model_obj)
+
+    def test_coefficient_handling(self):
+        self.assertRaises(ValueError, self.empty.coefficient)
+
+    def test_df_residual_handling(self):
+        self.assertRaises(ValueError, self.empty.df_residual)
+
+    def test_residuals_handling(self):
+        self.assertRaises(ValueError, self.empty.residuals)
+
+    def test_standard_error_handling(self):
+        self.assertRaises(ValueError, self.empty.standard_error)
+
+    def test_predict_handling(self):
+        self.assertRaises(ValueError, self.empty.predict, self.ds2x)
+
+    def test_test_stats_handling(self):
+        self.assertRaises(ValueError, self.empty.test_stats)
+
+    def test_p_value_handling(self):
+        self.assertRaises(ValueError, self.empty.p_value)
+
+    def test_fitted_values_handling(self):
+        self.assertRaises(ValueError, self.empty.fitted_values)
+
+    def test_r_squared_handling(self):
+        self.assertRaises(ValueError, self.empty.r_squared)
+
+    def test_adj_r_squared_handling(self):
+        self.assertRaises(ValueError, self.empty.adj_r_squared)
+
+    def test_f_statistic_handling(self):
+        self.assertRaises(ValueError, self.empty.f_statistic)
+
+    def test_f_test_pvalue_handling(self):
+        self.assertRaises(ValueError, self.empty.f_test_pvalue)
+
+    def test_residual_se_handling(self):
+        self.assertRaises(ValueError, self.empty.residual_se)
+
+    def test_summary_handling(self):
+        self.assertRaises(ValueError, self.empty.summary)
+
     def test_lm_with_pd(self):
         R_coef = [result[0] for result in R.summary(self.M1R).rx('coefficients')[0]]
         P_coef = self.M1P.coefficient()
@@ -62,6 +109,28 @@ class LMTestCase(unittest.TestCase):
         R_coef = [result[0] for result in R.summary(self.M2R).rx('coefficients')[0]]
         P_coef = self.M2P.coefficient()
         self.assertEqual(R_coef, P_coef)
+
+    def test_r_obj(self):
+        R_obj = self.M1P.r_model_obj()
+        self.assertEqual(type(R_obj), type(self.M1R))
+
+    def test_lm_verbose(self):
+        M3P = LM()
+        M3P.fit(self.ds2x, self.ds2y, verbose=0)
+        R_coef = [result[0] for result in R.summary(self.M2R).rx('coefficients')[0]]
+        self.assertEqual(R_coef, M3P.coefficient())
+
+    def test_lm_with_feature_name(self):
+        R_coef = [result[0] for result in R.summary(self.M2R).rx('coefficients')[0]]
+        M3P = LM()
+        M3P.fit(self.ds2x, self.ds2y, feature_name=['x1', 'x2'])
+        self.assertEqual(R_coef, M3P.coefficient())
+
+    def test_lm_with_response_name(self):
+        R_coef = [result[0] for result in R.summary(self.M2R).rx('coefficients')[0]]
+        M3P = LM()
+        M3P.fit(self.ds2x, self.ds2y, response_name="test_target")
+        self.assertEqual(R_coef, M3P.coefficient())
 
     def test_lm_with_formula(self):
         M1 = R.lm('y~x1+x2+x3', data=self.ds1)
@@ -124,14 +193,24 @@ class LMTestCase(unittest.TestCase):
         P_fs = self.M1P.f_statistic()
         self.assertEqual(R_fs.tolist(), P_fs)
 
+    def test_f_test_pvalue(self):
+        p_value = self.M1P.f_test_pvalue()
+        self.assertGreater(p_value, 0.05)
+
     def test_residual_se(self):
         R_rse = R.summary(self.M1R).rx('sigma')[0][0]
         P_rse = self.M1P.residual_se()
         self.assertEqual(R_rse, P_rse)
 
+    def test_summary(self):
+        summary = self.M1P.summary()
+        test_summary ='''$coefficients
+             Estimate Std. Error   t value  Pr(>|t|)
+(Intercept) 0.2727273  1.1634943 0.2344036 0.8364825
+x1          0.6909091  0.3534949 1.9545091 0.1898373
+x3          1.0909091  1.0204520 1.0690450 0.3969773
 
-if __name__ == "__main__":
-    suite = unittest.TestLoader().loadTestsFromTestCase(LMTestCase)
-    _ = unittest.TextTestRunner().run(suite)
-
-
+Residual standard error: 1.070259 on 2 degrees of freedom
+Mutiple R-squared: 0.770909, Adjusted R-squared: 0.541818
+F-statistic: 3.365079 on 2.0 and 2.0 DF with p-value: 0.229091'''
+        self.assertEqual(test_summary, summary)
