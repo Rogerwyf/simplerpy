@@ -1,4 +1,7 @@
 # simplerpy
+[![Build Status](https://app.travis-ci.com/Rogerwyf/simplerpy.svg?branch=main)](https://app.travis-ci.com/Rogerwyf/simplerpy)
+[![Coverage Status](https://coveralls.io/repos/github/Rogerwyf/simplerpy/badge.svg?branch=main)](https://coveralls.io/github/Rogerwyf/simplerpy?branch=main)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Introduction
 rpy2 is a well-known bridging package for Python programmers to use R in Python. This package, *simplerpy*, will focus on looking and building upon its interface to make it simplier and easier to use, focusing on functions related to regression and hypothesis testing.
