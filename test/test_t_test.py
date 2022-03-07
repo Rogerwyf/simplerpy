@@ -41,6 +41,8 @@ class tTestCase(unittest.TestCase):
         self.M2P_two_np = tTest()
         self.M2P_two_np.fit(dataA, dataB)
 
+        self.none = tTest()
+
     def test_t_with_pd_one(self):
         R_testval = self.M1R_one
         P_testval = self.M1P_one.r_model_obj()
@@ -108,4 +110,32 @@ class tTestCase(unittest.TestCase):
         R_sum = temp[:index_of_d] + temp[index_of_d + 15 + index_of_t:]
         P_sum = self.M1P_one.summary()
         self.assertEqual(R_sum, P_sum)
+
+    def test_r_obj_handling(self):
+        self.assertRaises(ValueError, self.none.r_model_obj)
+
+    def test_pval_handling(self):
+        self.assertRaises(ValueError, self.none.pvalue)
+
+
+    def test_tval_handling(self):
+        self.assertRaises(ValueError, self.none.tvalue)
+
+    def test_df_handling(self):
+        self.assertRaises(ValueError, self.none.df)
+
+    def test_ci_handling(self):
+        self.assertRaises(ValueError, self.none.ci)
+
+    def test_estimate_handling(self):
+        self.assertRaises(ValueError, self.none.estimate)
+
+    def test_stderror_handling(self):
+        self.assertRaises(ValueError, self.none.stderror)
+
+    def test_alternative_handling(self):
+        self.assertRaises(ValueError, self.none.alternative)
+
+    def test_method_handling(self):
+        self.assertRaises(ValueError, self.none.method)
 
