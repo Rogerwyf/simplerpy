@@ -22,7 +22,13 @@ test, or the specification of a different alternative testing hypothesis.
 
 
 ### Component 3: (AOV)
+Input (Pandas DataFrame)
+The class `AOV` contains a model object `aov()` from R through the bridge package rpy2.
+This class fits an anova model while also providing extra information that can be retrieved from the R object.
 
+An anova model can be fitted by calling the `fit()`  method with specifying the formula for training features and labels.
+Various types of information, such as sum of squares and degrees of freedom can be obtained from the object by calling
+the corresponding methods. 
 
 ### Component Interaction
 1. Users can utilize all components of the software on their input dataset for various purposes
