@@ -1,7 +1,7 @@
 ## Functional Specifications
 ___
 ### Background
-rpy2 is a well-known bridging package for Python programmers to use R in Python. This package, *simplerpy*, will focus on looking and building upon its interface to make it simplier and easier to use, focusing on functions related to regression and hypothesis testing.
+rpy2 is a well-known bridging package for Python programmers to use R in Python. This package, *simplerpy*, will focus on looking and building upon its interface to make it simpler and easier to use, focusing on functions related to regression and hypothesis testing.
 
 ### Users
 * Python programmers who would like to run statistical analysis with R in Python
@@ -9,7 +9,7 @@ rpy2 is a well-known bridging package for Python programmers to use R in Python.
 * Students who use both languages for their coursework
 
 ### Data Sources
-This package does not require any data. Users may utilize this package on their own datasets for statistial analysis purposes.
+This package does not require any data. Users may utilize this package on their own datasets for statistical analysis purposes.
 
 
 ### Use Cases
