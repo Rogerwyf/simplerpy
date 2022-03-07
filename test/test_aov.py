@@ -9,11 +9,10 @@
 Test suite for the class AOV in the package simplerpy
 """
 
+import math
 import unittest
 
-import numpy as np
 import pandas as pd
-from rpy2 import robjects
 from rpy2 import robjects as ro
 from rpy2.robjects import Formula
 from rpy2.robjects import pandas2ri
