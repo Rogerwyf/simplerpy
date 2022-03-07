@@ -24,7 +24,7 @@ test, or the specification of a different alternative testing hypothesis.
 ### Component 3: (AOV)
 
 
-### Componnet Interaction
+### Component Interaction
 1. Users can utilize all components of the software on their input dataset for various purposes
 (linear regression, hypothesis testing, analysis of variance) in a statistical analysis.
 2. Since the three components are standalone and serve for different purporses, users may not use any component as an input for another.
