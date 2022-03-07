@@ -33,13 +33,24 @@ df = pd.DataFrame(Stock_Market, columns=['Year', 'Month', 'Interest_Rate', 'Unem
 X = df.drop(columns=['Stock_Index_Price'])
 y = df['Stock_Index_Price']
 
-# Train an OLS model, get information from the fitted model and make predictions
+# Train an OLS model like how it is done in R
 model = LM()
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
 model.fit(X_train, y_train)
+
+# Get a summary of the fitted model
 model.summary()
-print(f'Coefficients of the features are: {model.coefficient()}\n')
-print(f'p-values of test of significance on the features are: {model.p_value()}\n')
+
+# Get relevant information of the fitted model, see more in linear_model.py
+print(f'Coefficients of the features are: {model.coefficient()}')
+print(f'Standard errors of the features are: {model.standard_error()}')
+print(f'p-values of test of significance on the features are: {model.p_value()}')
+print(f'r-squared of the model is: {model.r_squared()}')
+print(f'f statistic of the model is {model.f_statistic()[0]} with degrees of freedom of '
+      f'{model.f_statistic()[1]} and {model.f_statistic()[2]}')
+print(f'The resiual standard error based on the fitted model is {model.residual_se()}')
+
+# Make predictions and calculate metrics
 y_pred = model.predict(X_test)
 print(f"Mean Squared Error on testing data: {mean_squared_error(y_test, y_pred)}\n")
 
@@ -50,6 +61,8 @@ model2.summary()
 
 # LM() works with list of lists or numpy arrays
 model3 = LM()
-X = X.to_numpy()
-model3.fit(X, y)
+X = X.to_numpy() # convert pandas series to numpy arrays
+y = y.to_numpy()
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+model3.fit(X_train, y_train)
 model3.summary()
