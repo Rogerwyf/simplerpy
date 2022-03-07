@@ -45,3 +45,9 @@ model2.summary()
 model3=AOV()
 model3.fit("Stock_Index_Price~UR", df)
 model3.summary()
+
+
+# Extract parts of AOV summary output
+
+print(model.sum_of_squares()) # returns list of sum of square values
+print(model2.df()) # returns list of degrees of freedom
