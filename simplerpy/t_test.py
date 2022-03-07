@@ -25,7 +25,7 @@ class tTest:
 
 
 
-    def fit(self, data_a, data_b=None, mu=0, var_equal=True, conf=0.95, paired=False, alternative= "two.sided"):
+    def fit(self, data_a, data_b=None, mu=0, var_equal=False, conf=0.95, paired=False, alternative= "two.sided"):
         """
         Run the ttest with different features with stats.t_test in R
         through the package rpy2.
