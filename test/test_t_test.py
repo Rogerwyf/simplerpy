@@ -100,3 +100,12 @@ class tTestCase(unittest.TestCase):
         R_method = self.M2R_two.rx2('method')[0]
         P_method = self.M2P_two.method()
         self.assertEqual(R_method, P_method)
+
+    def test_t_summary(self):
+        temp = str(self.M1R_one)
+        index_of_d = temp.index('data')
+        index_of_t = temp[index_of_d + 15:].index('t')
+        R_sum = temp[:index_of_d] + temp[index_of_d + 15 + index_of_t:]
+        P_sum = self.M1P_one.summary()
+        self.assertEqual(R_sum, P_sum)
+
