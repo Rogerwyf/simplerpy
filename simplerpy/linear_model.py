@@ -32,14 +32,14 @@ class LM:
 
         self._model = None
 
-    def fit(self, X_train, y_train, feature_name=None, response_name=None, formula=None,
+    def fit(self, X, y, feature_name=None, response_name=None, formula=None,
             verbose=1):
         """
         Fits the linear model with input training features X_train and target y_train with lm() in R
         through the package rpy2.
 
-        :param X_train: feature vector, array-like (n_samples, n_features) or Pandas Dataframe
-        :param y_train: target vector, array-like (n_samples, 1) or Pandas Series or Dataframe
+        :param X: feature vector, array-like (n_samples, n_features) or Pandas Dataframe
+        :param y: target vector, array-like (n_samples, 1) or Pandas Series or Dataframe
         :param feature_name: names of features, used only when X_train is array-like all feature
                             names in the final model will be "f_num" by default
         :param response_name: name of the target, used when y_train is array-like, "y" by default.
@@ -50,17 +50,17 @@ class LM:
         """
 
         # check if input target vector has a name
-        if type(y_train) == pd.core.series.Series:
-            res_name = y_train.name
+        if isinstance(y, pd.Series):
+            res_name = y.name
         elif response_name:
             res_name = response_name
         else:
             res_name = 'y'
 
         # check if input features are contained in a Pandas Dataframe and prepare data for lm()
-        if type(X_train) == pd.DataFrame:
-            col_names = X_train.columns.values.tolist()
-            df = X_train.copy()
+        if type(X) == pd.DataFrame:
+            col_names = X.columns.values.tolist()
+            df = X.copy()
 
         else:
             if feature_name:
@@ -68,11 +68,11 @@ class LM:
 
             else:
                 col_names = []
-                for i in range(len(X_train[0])):
+                for i in range(len(X[0])):
                     col_names.append('f' + str(i + 1))
-            df = pd.DataFrame(X_train, columns=col_names)
+            df = pd.DataFrame(X, columns=col_names)
 
-        df[res_name] = y_train
+        df[res_name] = y
 
         # check if formula for lm() is specified, all features are used if not
         if not formula:
@@ -281,8 +281,9 @@ class LM:
                       f' {self.df_residual()} degrees of freedom\n'
             output += f'Mutiple R-squared: {round(self.r_squared() , 6)}, Adjusted R-squared:' \
                       f' {round(self.adj_r_squared(), 6)}\n'
-            output += f'F-statistic: {round(self.f_statistic()[0], 6)} on {self.f_statistic()[1]} and ' \
-                      f'{self.f_statistic()[2]} DF with p-value: {round(self.f_test_pvalue(), 6)}'
+            output += f'F-statistic: {round(self.f_statistic()[0], 6)} on ' \
+                      f'{self.f_statistic()[1]} and {self.f_statistic()[2]} DF with p-value: ' \
+                      f'{round(self.f_test_pvalue(), 6)}'
 
             print(output)
 
