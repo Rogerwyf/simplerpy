@@ -42,24 +42,29 @@ class tTestCase(unittest.TestCase):
         self.M2P_two_np.fit(dataA, dataB)
 
     def test_t_with_pd_one(self):
-        R_testval = self.M1R_one.rx2('statistic')[0]
-        P_testval = self.M1P_one.tvalue()
-        self.assertEqual(R_testval, P_testval)
+        R_testval = self.M1R_one
+        P_testval = self.M1P_one.r_model_obj()
+        self.assertEqual(type(R_testval), type(P_testval))
 
     def test_t_with_np_one(self):
-        R_testval = self.M1R_one_np.rx2('statistic')[0]
-        P_testval = self.M1P_one_np.tvalue()
-        self.assertEqual(R_testval, P_testval)
+        R_testval = self.M1R_one_np
+        P_testval = self.M1P_one_np.r_model_obj()
+        self.assertEqual(type(R_testval), type(P_testval))
 
     def test_t_with_pd_two(self):
+        R_testval_two = self.M2R_two
+        P_testval_two = self.M2P_two.r_model_obj()
+        self.assertEqual(type(R_testval_two), type(P_testval_two))
+
+    def test_t_with_np_two(self):
+        R_testval_np = self.M2R_two_np
+        P_testval_np = self.M2P_two_np.r_model_obj()
+        self.assertEqual(type(R_testval_np), type(P_testval_np))
+
+    def test_t_val(self):
         R_testval_two = self.M2R_two.rx2('statistic')[0]
         P_testval_two = self.M2P_two.tvalue()
         self.assertEqual(R_testval_two, P_testval_two)
-
-    def test_t_with_np_two(self):
-        R_testval_np = self.M2R_two_np.rx2('statistic')[0]
-        P_testval_np = self.M2P_two_np.tvalue()
-        self.assertEqual(R_testval_np, P_testval_np)
 
     def test_t_pvalue(self):
         R_pval = self.M2R_two.rx2('p.value')[0]
@@ -86,7 +91,6 @@ class tTestCase(unittest.TestCase):
         P_stder = self.M2P_two.stderror()
         self.assertEqual(R_stder, P_stder)
 
-
     def test_t_alternative(self):
         R_alt = self.M2R_two.rx2('alternative')[0]
         P_alt = self.M2P_two.alternative()
@@ -96,7 +100,3 @@ class tTestCase(unittest.TestCase):
         R_method = self.M2R_two.rx2('method')[0]
         P_method = self.M2P_two.method()
         self.assertEqual(R_method, P_method)
-
-if __name__ == "__main__":
-    suite = unittest.TestLoader().loadTestsFromTestCase(tTestCase)
-    _ = unittest.TextTestRunner().run(suite)
