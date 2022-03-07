@@ -36,11 +36,18 @@ test_Two = tTest()
 test_Two.fit(Y)
 test_Two.summary()
 
-# two sample t-test, unequal variances, 0.90 confidence level
+# two sample t-test, assuming equal variances and at 0.90 confidence level
 df_2016 = df[df['Year']==2016]
 test_Three = tTest()
-test_Three.fit(df_2017['Interest_Rate'], df_2016['Interest_Rate'], var_equal=False, conf=0.90)
+test_Three.fit(df_2017['Interest_Rate'], df_2016['Interest_Rate'], var_equal=True, conf=0.90)
 test_Three.summary()
 
 # extract p-value for two sample test
-print('The p-value for this test is ' + str(test_Three.pvalue())).
+# performed at default 0.90 confidence level, if significant then there is a difference in means between
+# interest rates in 2017 and interest rates in 2016
+print('The p-value for this test is ' + str(test_Three.pvalue()))
+
+# extract the mean estimates for this test
+print('The mean estimates for this test are ' + str(test_Three.estimate()[0]) + ' and ' + str(test_Three.estimate()[1]))
+
+
