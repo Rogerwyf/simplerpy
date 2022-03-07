@@ -33,8 +33,6 @@ Stock_Market = {
 
 df = pd.DataFrame(Stock_Market, columns=['Year', 'Month', 'IR', 'UR',
                                          'Stock_Index_Price'])
-X = df.drop(columns=['Stock_Index_Price'])
-y = df['Stock_Index_Price']
 
 
 #fits an AOV model and displays the summary
