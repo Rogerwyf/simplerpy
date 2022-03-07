@@ -6,7 +6,6 @@
 
 import pandas as pd
 from rpy2.robjects import pandas2ri
-# importr grabs packages from R
 from rpy2.robjects.packages import importr
 
 pandas2ri.activate()
@@ -17,6 +16,8 @@ The class "tTest" performs one or two sample t-tests from R through the bridge p
 This class mimics Python commands and outputs while providing extra information
 for the rest retrieved from the R object.  
 """
+
+
 class tTest:
     def __init__(self):
         """
@@ -24,9 +25,8 @@ class tTest:
         """
         self._model = None
 
-
-
-    def fit(self, data_a, data_b=None, mu=0, var_equal=False, conf=0.95, paired=False, alternative= "two.sided"):
+    def fit(self, data_a, data_b=None, mu=0, var_equal=False, conf=0.95, paired=False,
+            alternative="two.sided"):
         """
         Run the ttest with different features with stats.t_test in R
         through the package rpy2.
@@ -41,26 +41,26 @@ class tTest:
 
         :return: None, assign to self._model
         """
-        if type(data_a) == pd.core.series.Series:
+        if isinstance(data_a, pd.Series):
             dataA = data_a
         else:
             dataA = base.as_numeric(data_a)
         # one-sample t-test
         if data_b is None:
-            #mu is defaulted to 0
+            # mu is defaulted to 0
             self._model = stats.t_test(dataA, mu=mu, **{'conf.level': conf,
                                                         'alternative': alternative})
         else:
-        # two sample t-test
-        #if data_a and data_b:
-            if type(data_b) == pd.core.series.Series:
+            # two sample t-test
+            # if data_a and data_b:
+            if isinstance(data_b, pd.Series):
                 dataB = data_b
             else:
                 dataB = base.as_numeric(data_b)
-            self._model = stats.t_test(dataA, dataB ,mu = mu, **{'var.equal': var_equal,
-                                                                 'conf.level': conf,
-                                                                 'paired': paired,
-                                                                 'alternative': alternative})
+            self._model = stats.t_test(dataA, dataB, mu=mu, **{'var.equal': var_equal,
+                                                               'conf.level': conf,
+                                                               'paired': paired,
+                                                               'alternative': alternative})
 
     def r_model_obj(self):
         """
@@ -161,7 +161,6 @@ class tTest:
         else:
             raise ValueError('Test not fitted')
 
-
     def summary(self):
         """
         Prints summary of ttest
@@ -173,4 +172,3 @@ class tTest:
         index_of_t = temp[index_of_d + 15:].index('t')
 
         return temp[:index_of_d] + temp[index_of_d + 15 + index_of_t:]
-
