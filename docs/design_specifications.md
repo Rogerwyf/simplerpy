@@ -8,17 +8,18 @@ retrieved from the R object.
 
 This underlying linear model can be fitted by calling the `fit()` method with input training features
 and labels. Various types of information, such as estimated coefficients and their associated p-values,
-can be obtained from the object by calling the corresponding methods.
+can be obtained from the object by calling their corresponding methods.
 
 ### Component 2: (tTest)
 Input (Pandas Dataframe or Array-Like)\
 The class 'tTest' implements a student (one or two sample) t-test from R through the bridge package rpy2.
 This class mimics Python commands and outputs while providing extra information provided by the test that is 
-retrieved from the R object.  
+retrieved from the R object. 
 
 This test must be fitted by calling the `fit()` method with either one or two samples of data. Other 
 arguments may include a different testing mean value, confidence testing level, equal or unequal variances
-test, or the specification of a different alternative testing hypothesis.
+test, or the specification of a different alternative testing hypothesis. These types of information can be 
+obtained by calling their corresponding methods.
 
 
 ### Component 3: (AOV)
@@ -28,7 +29,7 @@ This class fits an anova model while also providing extra information that can b
 
 An anova model can be fitted by calling the `fit()`  method with specifying the formula for training features and labels.
 Various types of information, such as sum of squares and degrees of freedom can be obtained from the object by calling
-the corresponding methods. 
+their corresponding methods. 
 
 ### Component Interaction
 1. Users can utilize all components of the software on their input dataset for various purposes
