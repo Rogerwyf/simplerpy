@@ -27,3 +27,7 @@ This package does not require any data. Users may utilize this package on their 
 3. Use R objects directly in Python:
    1. Users who are proficient with package rpy2 will have the option to interact directly with R objects
    2. Users can call `r_model_obj()` method to obtain the underlying R object for each component
+4. Integrate with other Python libraries:
+   1. Users can use simplerpy objects with pipeline libraries such as sklearn.pipeline
+   2. Test classification with NLTK
+
