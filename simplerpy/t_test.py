@@ -170,5 +170,6 @@ class tTest:
         temp = str(self._model)
         index_of_d = temp.index('data')
         index_of_t = temp[index_of_d + 15:].index('t')
-
+        
+        print(temp[:index_of_d] + temp[index_of_d + 15 + index_of_t:])
         return temp[:index_of_d] + temp[index_of_d + 15 + index_of_t:]
