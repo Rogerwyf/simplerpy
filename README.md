@@ -50,7 +50,7 @@ source venv/bin/activate
 ```
 If you're using Anaconda/Miniconda, create and activate a new Conda environment with Python 3.7:
 ```
-conda create --n simplerpy python=3.7
+conda create --name simplerpy python=3.7
 conda activate simplerpy
 ```
 Install the all the dependencies from `requirements.txt`:
@@ -64,6 +64,7 @@ python setup.py sdist bdist_wheel
 which will generate `simplerpy-1.0.0.tar.gz` in the `dist` directory. Now the package can be
 installed using:
 ```
+cd dist
 pip install simplerpy-1.0.0.tar.gz
 ```
 
