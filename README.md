@@ -12,6 +12,36 @@ The objects/functions in simplerpy are listed below:
 * `tTest` - a T-test class corresonding to `t.test()` in R
 * `aov` - an Analysis of Variance Model class corresponding to `aov()` in R
 
+## Project Structure
+```
+simplerpy
+    |   LICENSE
+    |   README.md
+    |   requirements.txt
+    |   setup.py
+    |   
+    +---simplerpy
+    |   |   aov.py
+    |   |   linear_model.py
+    |   |   t_test.py
+    |   |   __init__.py
+    |           
+    +---docs
+    |       design_specifications.md
+    |       functional_specifications.md
+    |       simplerpy presentation.pptx
+    |       
+    +---examples
+    |       demo_aov.py
+    |       demo_linear_model.py
+    |       demo_t_test.py
+    |       
+    |           
+    \---test
+            test_aov.py
+            test_linear_model.py
+            test_t_test.py
+```
 ## Installation
 Clone the repo and create a virtual environment in the root of the repo:
 ```
