@@ -46,7 +46,7 @@ install:
 
 # check flake8 with max length = 100
 before_script:
-    - flake8 simplerpy
+    - flake8 -v simplerpy
 
 # the actual commands to run
 script:
