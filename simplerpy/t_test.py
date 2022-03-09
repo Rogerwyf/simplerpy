@@ -4,6 +4,12 @@
 # ================================================
 
 
+"""
+The class "tTest" performs one or two sample t-tests from R through the bridge
+package rpy2. This class mimics Python commands and outputs while providing
+extra information for the rest retrieved from the R object.
+"""
+
 import pandas as pd
 from rpy2.robjects import pandas2ri
 from rpy2.robjects.packages import importr
@@ -11,22 +17,18 @@ from rpy2.robjects.packages import importr
 pandas2ri.activate()
 base = importr('base')
 stats = importr('stats')
-"""
-The class "tTest" performs one or two sample t-tests from R through the bridge package rpy2.
-This class mimics Python commands and outputs while providing extra information
-for the rest retrieved from the R object.  
-"""
 
 
 class tTest:
     def __init__(self):
         """
-        Initialize the tTest object, fit() must be called before all other methods
+        Initialize the tTest object, fit() must be called before all other
+        methods
         """
         self._model = None
 
-    def fit(self, data_a, data_b=None, mu=0, var_equal=False, conf=0.95, paired=False,
-            alternative="two.sided"):
+    def fit(self, data_a, data_b=None, mu=0, var_equal=False, conf=0.95,
+            paired=False, alternative="two.sided"):
         """
         Run the ttest with different features with stats.t_test in R
         through the package rpy2.
@@ -34,10 +36,12 @@ class tTest:
         :param data_a: vector
         :param data_b: vector, used only for two sample test
         :param mu: numeric value, default to 0
-        :param var_equal: boolean, true for equal or false for unequal variances test
+        :param var_equal: boolean, true for equal or false for unequal
+        variances test
         :param conf: float numeric, confidence level for interval/testing
         :param paired: boolean, true for paired t-test, default to false
-        :param alternative: c('two.sided', 'less', 'greater'), type of test to perform
+        :param alternative: c('two.sided', 'less', 'greater'), type of test
+        to perform
 
         :return: None, assign to self._model
         """
@@ -48,8 +52,9 @@ class tTest:
         # one-sample t-test
         if data_b is None:
             # mu is defaulted to 0
-            self._model = stats.t_test(dataA, mu=mu, **{'conf.level': conf,
-                                                        'alternative': alternative})
+            self._model = stats.t_test(dataA, mu=mu,
+                                       **{'conf.level': conf,
+                                          'alternative': alternative})
         else:
             # two sample t-test
             # if data_a and data_b:
@@ -57,10 +62,11 @@ class tTest:
                 dataB = data_b
             else:
                 dataB = base.as_numeric(data_b)
-            self._model = stats.t_test(dataA, dataB, mu=mu, **{'var.equal': var_equal,
-                                                               'conf.level': conf,
-                                                               'paired': paired,
-                                                               'alternative': alternative})
+            self._model = stats.t_test(dataA, dataB, mu=mu,
+                                       **{'var.equal': var_equal,
+                                          'conf.level': conf,
+                                          'paired': paired,
+                                          'alternative': alternative})
 
     def r_model_obj(self):
         """
@@ -170,6 +176,5 @@ class tTest:
         temp = str(self._model)
         index_of_d = temp.index('data')
         index_of_t = temp[index_of_d + 15:].index('t')
-        
         print(temp[:index_of_d] + temp[index_of_d + 15 + index_of_t:])
         return temp[:index_of_d] + temp[index_of_d + 15 + index_of_t:]
