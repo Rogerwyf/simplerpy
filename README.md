@@ -42,6 +42,9 @@ simplerpy
             test_linear_model.py
             test_t_test.py
 ```
+## Code Style
+The source codes for this package under directory `simplerpy` have passed Flake8 stylecheck.
+
 ## Installation
 Clone the repo and create a virtual environment in the root of the repo:
 ```
