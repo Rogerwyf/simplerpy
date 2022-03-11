@@ -42,8 +42,6 @@ simplerpy
             test_linear_model.py
             test_t_test.py
 ```
-## Code Style
-The source codes for this package under directory `simplerpy` have passed Flake8 stylecheck.
 
 ## Installation
 Clone the repo and create a virtual environment in the root of the repo:
@@ -72,6 +70,15 @@ pip install simplerpy-1.0.0.tar.gz
 ```
 
 Installation of R is also required for running `rpy2`, and the latest version can be found [here](https://cran.r-project.org/).
+
+## Code Style
+The source codes for this package under directory `simplerpy` have passed Flake8 code style sanity check. You may also check manually by running 
+```
+flake8 -v simplerpy
+```
+at the root directory
+
+
 ## Usage
 For details of usage on each object in this package, refer to their corresponding demo python script under `example` dirctory.
 For example, see `demo_lienar_model.py` for the usage of `LM` class.
