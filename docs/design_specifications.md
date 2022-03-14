@@ -12,7 +12,7 @@ can be obtained from the object by calling their corresponding methods.
 
 ### Component 2: (tTest)
 Input (Pandas Dataframe or Array-Like)\
-The class 'tTest' implements a student (one or two sample) t-test from R through the bridge package rpy2.
+The class `tTest` implements a student (one or two sample) t-test from R through the bridge package rpy2.
 This class mimics Python commands and outputs while providing extra information provided by the test that is 
 retrieved from the R object. 
 
